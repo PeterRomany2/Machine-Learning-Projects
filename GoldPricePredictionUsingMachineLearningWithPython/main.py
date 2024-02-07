@@ -73,13 +73,16 @@ peter_romany_module.spearmanr(variable1,variable2)
 peter_romany_module.sorted_zscore(variable1,show_z_score=False)
 peter_romany_module.sorted_rank(variable1,show_percent_rank=False)
 
+# d = dtale.show(df, host='localhost', subprocess=False)
+# d.open_browser()
+
+'''                                                       Machine Learning
+                 Dive into machine learning, leveraging algorithms to extract meaningful insights and make informed predictions from data.
+'''
+
 linear_model=peter_romany_module.linear_regression(df,['SPX', 'USO', 'SLV', 'EUR/USD'],'GLD',False)
 
 # Making a Predictive System
 input_data = pd.DataFrame([[2725.780029,14.405800,15.454200,1.182033]], columns=['SPX', 'USO', 'SLV', 'EUR/USD'])
 prediction = linear_model.predict(input_data)
 print("The prediction is: ",prediction)
-
-# df = df.drop(columns='Dosage')
-# d = dtale.show(df, host='localhost', subprocess=False)
-# d.open_browser()

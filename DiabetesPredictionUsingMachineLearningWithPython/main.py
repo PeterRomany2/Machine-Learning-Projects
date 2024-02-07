@@ -76,6 +76,13 @@ peter_romany_module.check_variance_homogeneity(variable1,variable2)
 peter_romany_module.pearsonr(variable1,variable2)
 peter_romany_module.spearmanr(variable1,variable2)
 
+# d = dtale.show(df, host='localhost', subprocess=False)
+# d.open_browser()
+
+'''                                                       Machine Learning
+                 Dive into machine learning, leveraging algorithms to extract meaningful insights and make informed predictions from data.
+'''
+
 svc_model=peter_romany_module.support_vector_classification(df,['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin','BMI', 'DiabetesPedigreeFunction', 'Age'],'Outcome',Kernel="linear",Regularization=1)
 
 # Making a Predictive System
@@ -86,7 +93,3 @@ if (prediction[0] == 0):
   print('The person is not diabetic')
 else:
   print('The person is diabetic')
-
-# df = df.drop(columns='Dosage')
-# d = dtale.show(df, host='localhost', subprocess=False)
-# d.open_browser()

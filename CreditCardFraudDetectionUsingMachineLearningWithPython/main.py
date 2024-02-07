@@ -80,7 +80,30 @@ It identifies outliers, storing them for further study and insight extraction pu
 
 peter_romany_module.insights_by_descriptive_analytics(df,'Amount')
 
-var1,var2=df['Amount'],df['Class']
+# Check for Entropy and data diversity
+# print(df['Class'].value_counts())
+
+'''
+After conducting a thorough check for entropy and data diversity within the dataset, the Dataset imbalance, potentially leading to biased predictions and impacting model fairness.
+'''
+
+# separating the data for analysis
+legit = df[df['Class'] == 0]
+fraud = df[df['Class'] == 1]
+amount_of_fraud=df[df['Class'] == 1]['Amount']
+amount_of_fraud.name='amount_of_fraud'
+
+'''
+Balancing Imbalanced Datasets: Under-Sampling Techniques.
+'''
+
+legit_sample = legit.sample(n=len(fraud))
+amount_of_legit=df[df['Class'] == 0]['Amount'].sample(n=len(fraud))
+amount_of_legit.name='amount_of_legit'
+new_dataset = pd.concat([legit_sample, fraud], axis=0)
+independent_variables=new_dataset.drop(columns='Class', axis=1)
+
+var1,var2=amount_of_legit,amount_of_fraud
 peter_romany_module.check_normality(var1,var2)
 peter_romany_module.check_variance_homogeneity(var1,var2)
 peter_romany_module.independent_sample_ttest(var1,var2,equal_variance=True)
@@ -92,23 +115,13 @@ peter_romany_module.check_variance_homogeneity(variable1,variable2)
 peter_romany_module.pearsonr(variable1,variable2)
 peter_romany_module.spearmanr(variable1,variable2)
 
-# Check for Entropy and data diversity
-print(df['Class'].value_counts())
-'''
-After conducting a thorough check for entropy and data diversity within the dataset, the Dataset imbalance, potentially leading to biased predictions and impacting model fairness.
+# d = dtale.show(df, host='localhost', subprocess=False)
+# d.open_browser()
+
+'''                                                       Machine Learning
+                 Dive into machine learning, leveraging algorithms to extract meaningful insights and make informed predictions from data.
 '''
 
-# separating the data for analysis
-legit = df[df['Class'] == 0]
-fraud = df[df['Class'] == 1]
-
-'''
-Balancing Imbalanced Datasets: Under-Sampling Techniques.
-'''
-
-legit_sample = legit.sample(n=len(fraud))
-new_dataset = pd.concat([legit_sample, fraud], axis=0)
-independent_variables=new_dataset.drop(columns='Class', axis=1)
 logistic_model=peter_romany_module.logistic_regression(new_dataset,independent_variables.columns,'Class')
 
 # Making a Predictive System
@@ -119,7 +132,3 @@ if (prediction[0] == 0):
   print('The credit card is legitimate')
 else:
   print('The credit card is fraudulent')
-
-# df = df.drop(columns='Dosage')
-# d = dtale.show(df, host='localhost', subprocess=False)
-# d.open_browser()
